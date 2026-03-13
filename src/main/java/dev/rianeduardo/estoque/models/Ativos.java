@@ -23,7 +23,7 @@ public class Ativos implements Serializable {
 
     private String codigoPatrimonio;
 
-    private String estado;
+    private Boolean ativo = true;
 
     private String descricao;
 }

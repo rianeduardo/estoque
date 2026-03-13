@@ -48,27 +48,39 @@ public class MovimentacaoController {
     }
 
     @PostMapping("/salvar")
-    public String salvarMovimentacao(@ModelAttribute Movimentacoes movimentacao, HttpSession session,
+    public String salvarMovimentacao(@ModelAttribute Movimentacoes movimentacao,
+            HttpSession session,
             RedirectAttributes redirectAttributes) {
+
         if (session.getAttribute("usuarioLogado") == null) {
             redirectAttributes.addFlashAttribute("erro",
-                    "Sua sessão não é válida ou expirou. Faça login novamente para acessar o sistema.");
+                    "Sua sessão expirou. Faça login novamente.");
             return "redirect:/login";
         }
 
-        movimentacaoRepository.save(movimentacao);
-
-        Materiais material = materialRepository.findById(movimentacao.getMaterial().getId()).orElse(null);
+        Materiais material = materialRepository
+                .findById(movimentacao.getMaterial().getId())
+                .orElse(null);
 
         if (material != null) {
+
             if (movimentacao.getTipo() == Movimentacoes.TipoMovimentacao.ENTRADA) {
+
                 material.setEstoque(material.getEstoque() + movimentacao.getQuantidade());
 
             } else if (movimentacao.getTipo() == Movimentacoes.TipoMovimentacao.SAIDA) {
+
+                if (movimentacao.getQuantidade() > material.getEstoque()) {
+                    redirectAttributes.addFlashAttribute("erro",
+                            "Quantidade maior que o estoque disponível!");
+                    return "redirect:/app/movimentacoes";
+                }
+
                 material.setEstoque(material.getEstoque() - movimentacao.getQuantidade());
             }
 
             materialRepository.save(material);
+            movimentacaoRepository.save(movimentacao);
         }
 
         return "redirect:/app/movimentacoes";

@@ -33,6 +33,11 @@
         <section class="senai-hero">
             <div class="senai-shell">
                 <div class="senai-card" style="width: 100%;">
+
+                    <div th:if="${erro}" class="senai-badge-danger" style="margin-top: 20px;">
+                        <span th:text="${erro}"></span>
+                    </div>
+
                     <div
                         style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                         <h1 class="senai-title" style="font-size: 22px;">Histórico de Movimentações</h1>
