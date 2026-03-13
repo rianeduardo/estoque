@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home | Sistema de Estoque e Patrimônio</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{//use.fontawesome.com/releases/v7.2.0/css/all.css}">
+</head>
+
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <main class="senai-main">
+        <section class="senai-hero">
+            <div class="senai-shell">
+                <div>
+                    <h1 class="senai-title">Gerenciamento de Estoque e Ativos Patrimoniais</h1>
+                    <p class="senai-subtitle">Controle de materiais, movimentações e inventário da unidade escolar do
+                        SENAI-SP.</p>
+
+                    <div class="senai-actions">
+                        <a class="senai-button" th:href="@{/login}">Acessar Sistema</a>
+                        <a class="senai-link" th:href="@{/cadastro}">Criar conta</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+<script th:src="@{/js/menu.js}"></script>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editar Material | Sistema de Estoque</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{//use.fontawesome.com/releases/v7.2.0/css/all.css}">
+</head>
+
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <main class="senai-main">
+        <section class="senai-hero">
+            <div class="senai-shell" style="justify-content:center;">
+                <div class="senai-card" style="width: 100%; max-width: 600px;">
+                    <h1 class="senai-title" style="font-size: 22px;">Editar Material</h1>
+
+                    <form th:action="@{/app/materiais/salvar}" th:object="${material}" method="post" class="senai-form">
+
+                        <input type="hidden" th:field="*{id}" />
+
+                        <label class="senai-label" for="nome">Nome do Material</label>
+                        <input class="senai-input" type="text" id="nome" th:field="*{nome}" required />
+
+                        <label class="senai-label" for="categoria">Categoria</label>
+                        <select class="senai-input" id="categoria" th:field="*{categoria}" required>
+                            <option th:each="cat : ${categorias}" th:value="${cat.idCategoria}" th:text="${cat.nome}">
+                            </option>
+                        </select>
+
+                        <label class="senai-label" for="descricao">Descrição</label>
+                        <textarea class="senai-input" id="descricao" th:field="*{descricao}" rows="3"></textarea>
+
+                        <label class="senai-label" for="estoque">Estoque Atual (Somente Leitura)</label>
+                        <input class="senai-input" type="number" id="estoque" th:field="*{estoque}" readonly
+                            style="background-color: #e9ecef;" />
+
+                        <div class="senai-actions" style="margin-top: 20px; justify-content: flex-end;">
+                            <a class="senai-link" th:href="@{/app/materiais}" style="margin-right: 12px;">Cancelar</a>
+                            <button class="senai-button" type="submit">Salvar Alterações</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div th:include="~{fragments/footer :: footer}"></div>
+</body>
+<script th:src="@{/js/menu.js}"></script>
+
+</html>

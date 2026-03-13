@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ativos Patrimoniais | Sistema de Estoque e Patrimônio</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{//use.fontawesome.com/releases/v7.2.0/css/all.css}">
+</head>
+
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <main class="senai-main">
+        <section class="senai-hero">
+            <div class="senai-shell" style="flex-direction: column; align-items: stretch;">
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <div>
+                        <h1 class="senai-title">Ativos Patrimoniais</h1>
+                        <p class="senai-subtitle">Controle de equipamentos e bens permanentes.</p>
+                    </div>
+                    <a class="senai-button" th:href="@{/app/ativos/novo}">+ Novo Ativo</a>
+                </div>
+
+                <div class="senai-card">
+                    <div class="senai-table-container">
+                        <table class="senai-table">
+                            <thead>
+                                <tr>
+                                    <th>Código (Plaqueta)</th>
+                                    <th>Descrição</th>
+                                    <th>Localização</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="ativo : ${ativos}">
+                                    <td th:text="${ativo.codigoPatrimonio}">SENAI-12345</td>
+                                    <td th:text="${ativo.descricao}">Torno Mecânico CNC</td>
+                                    <td th:text="${ativo.localizacao}">Laboratório de Usinagem</td>
+                                    <td>
+                                        <span th:if="${ativo.estado}" class="senai-badge senai-badge-success">Em
+                                            Uso</span>
+                                        <span th:unless="${ativo.estado}"
+                                            class="senai-badge senai-badge-danger">Baixado</span>
+                                    </td>
+                                    <td>
+                                        <a class="senai-link"
+                                            th:href="@{/app/ativos/editar/{id}(id=${ativo.idPatrimonio})}">Editar</a>
+                                        <a class="senai-link"
+                                            th:href="@{/app/ativos/excluir/{id}(id=${ativo.idPatrimonio})}"
+                                            style="color: red;"
+                                            onclick="return confirm('Excluir este ativo?');">Excluir</a>
+                                    </td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(ativos)}">
+                                    <td colspan="5" style="text-align: center; color: #6B7280;">Nenhum ativo cadastrado.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div style="margin-top: 16px;">
+                    <a class="senai-link" th:href="@{/dashboard}">&larr; Voltar ao Dashboard</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div th:include="~{fragments/footer :: footer}"></div>
+</body>
+<script th:src="@{/js/menu.js}"></script>
+
+</html>

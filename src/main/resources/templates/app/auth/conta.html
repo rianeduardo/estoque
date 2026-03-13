@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minha Conta | Sistema de Estoque</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{//use.fontawesome.com/releases/v7.2.0/css/all.css}">
+</head>
+
+<body>
+
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <main class="senai-main">
+        <section style="padding: 20px 0;">
+            <div class="senai-shell" style="display:block;">
+
+                <div class="senai-card" style="margin-bottom:24px;">
+                    <h1 class="senai-title" style="font-size:24px;">Minha Conta</h1>
+                    <p class="senai-subtitle">Informações do usuário logado no sistema.</p>
+                </div>
+
+                <div class="senai-card">
+
+                    <div class="conta-wrap">
+
+                        <div class="conta-item">
+                            <span class="conta-label">Nome: </span>
+                            <strong th:text="${nome}">Rian Eduardo</strong>
+                        </div>
+
+                        <div class="conta-item">
+                            <span class="conta-label">NIF: </span>
+                            <strong th:text="${nif}">123456</strong>
+                        </div>
+
+                        <div class="conta-item">
+                            <span class="conta-label">Status: </span>
+                            <strong class="status-badge">Ativo</strong>
+                        </div>
+
+                        <div class="conta-item">
+                            <span class="conta-label">Último Login:</span>
+                            <strong th:text="${#temporals.format(ultimoLogin, 'dd/MM/yyyy HH:mm:ss')}"></strong>
+                        </div>
+
+                        <div class="conta-item">
+                            <span class="conta-label">Próxima Conferência Patrimonial:</span>
+                            <strong>10/07/2026</strong>
+                        </div>
+
+                        <a class="senai-button" style="text-align: center;" th:href="@{/logout}">Sair</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+<script th:src="@{/js/menu.js}"></script>
+
+</html>

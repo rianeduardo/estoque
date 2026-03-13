@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro | Sistema de Estoque e Patrimônio</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{//use.fontawesome.com/releases/v7.2.0/css/all.css}">
+</head>
+
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <main class="senai-main">
+        <section class="senai-shell" style="justify-content: center; padding-top: 40px;">
+
+            <div class="senai-card" style="width: 100%; max-width: 480px; padding: 32px;">
+                <h1 class="senai-title" style="font-size: 24px;">Criar Conta</h1>
+                <p class="senai-subtitle" style="margin-top: 8px; margin-bottom: 24px;">Cadastre-se para acessar o
+                    painel de estoque e patrimônio.</p>
+
+                <div th:if="${erro}" class="senai-badge-danger" role="alert" style="margin-bottom: 16px;">
+                    <p th:text="${erro}"></p>
+                </div>
+                <div th:if="${sucesso}" class="senai-badge-success" role="status" style="margin-bottom: 16px;">
+                    <p th:text="${sucesso}"></p>
+                </div>
+
+                <form th:action="@{/cadastro}" method="post" class="senai-form-login" autocomplete="on">
+
+                    <div style="margin-bottom: 16px;">
+                        <label class="senai-label" for="nome" style="display: block; margin-bottom: 8px;">Nome
+                            Completo</label>
+                        <input class="senai-input" type="text" id="nome" name="nome" placeholder="Digite seu nome exato"
+                            required maxlength="120" />
+                    </div>
+
+                    <div style="margin-bottom: 16px;">
+                        <label class="senai-label" for="nif" style="display: block; margin-bottom: 8px;">NIF</label>
+                        <input class="senai-input" type="text" id="nif" name="nif" placeholder="Apenas números" required
+                            maxlength="20" />
+                        <small style="color: #6B7280; font-size: 12px; display: block; margin-top: 4px;">Seu NIF precisa
+                            estar previamente autorizado pelo RH.</small>
+                    </div>
+
+                    <div style="margin-bottom: 24px;">
+                        <label class="senai-label" for="senha" style="display: block; margin-bottom: 8px;">Criar
+                            Senha</label>
+                        <input class="senai-input" type="password" id="senha" name="senha"
+                            placeholder="Crie uma senha forte" required minlength="4" />
+                    </div>
+
+                    <button class="senai-button" type="submit"
+                        style="width: 100%; padding: 12px; font-size: 16px;">Finalizar Cadastro</button>
+                </form>
+
+                <div
+                    style="margin-top: 24px; text-align: center; font-size: 14px; border-top: 1px solid var(--senai-gray-200); padding-top: 16px;">
+                    <p style="margin: 0; color: #4B5563;">
+                        Já possui uma conta?
+                        <a class="senai-link" th:href="@{/login}" style="color: var(--senai-red);">Fazer Login</a>
+                    </p>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+<script th:src="@{/js/menu.js}"></script>
+
+</html>

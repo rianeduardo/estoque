@@ -1,0 +1,22 @@
+<header class="senai-header">
+    <div class="senai-shell">
+
+        <a class="senai-brand" th:href="@{/dashboard}">
+            <img src="/img/logo-senai.png" class="senai-logo">
+            <span class="senai-brand-text">Sistema de Estoque e Patrimônio</span>
+        </a>
+
+        <button class="menu-toggle">
+            <i class="fa-solid fa-bars" style="color: #e30613"></i>
+        </button>
+
+        <nav class="senai-nav">
+            <a class="senai-link" th:href="@{/dashboard}">Dashboard</a>
+            <a class="senai-link" th:href="@{/app/materiais}">Materiais</a>
+            <a class="senai-link" th:href="@{/app/ativos}">Ativos Patrimoniais</a>
+            <a class="senai-link" th:href="@{/app/movimentacoes}">Registrar Movimentação</a>
+            <a class="senai-button" th:href="@{/logout}">Sair</a>
+        </nav>
+
+    </div>
+</header>

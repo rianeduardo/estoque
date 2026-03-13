@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Materiais | Sistema de Estoque e Patrimônio</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{//use.fontawesome.com/releases/v7.2.0/css/all.css}">
+</head>
+
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <main class="senai-main">
+        <section class="senai-hero">
+            <div class="senai-shell" style="flex-direction: column; align-items: stretch;">
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <div>
+                        <h1 class="senai-title">Materiais de Estoque</h1>
+                        <p class="senai-subtitle">Gerencie os itens de consumo da unidade escolar.</p>
+                    </div>
+
+                    <div style="display: flex; gap: 10px;">
+                        <a class="senai-button" th:href="@{/app/materiais/alertas}"
+                            style="background-color: #ffc107; color: #856404; border: none;"><i
+                                class="fa-solid fa-triangle-exclamation"
+                                style="color: #e30613; margin-right: 20px;"></i>Ver Alertas</a>
+                        <a class="senai-button" th:href="@{/app/materiais/novo}">+ Novo Material</a>
+                    </div>
+                </div>
+
+                <div th:if="${mensagem}"
+                    style="background-color: #d4edda; color: #155724; padding: 12px 16px; border-radius: 4px; margin-bottom: 16px; border: 1px solid #c3e6cb;">
+                    <strong style="margin-right: 8px;">Sucesso!</strong> <span th:text="${mensagem}"></span>
+                </div>
+
+                <div th:if="${erro}"
+                    style="background-color: #f8d7da; color: #721c24; padding: 12px 16px; border-radius: 4px; margin-bottom: 16px; border: 1px solid #f5c6cb;">
+                    <strong style="margin-right: 8px;">Atenção!</strong> <span th:text="${erro}"></span>
+                </div>
+
+                <div class="senai-card">
+                    <div class="senai-table-container">
+                        <table class="senai-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Categoria</th>
+                                    <th>Qtd. Atual</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="material : ${materiais}">
+                                    <td th:text="${material.id}">1</td>
+                                    <td th:text="${material.nome}">Resistor 1k Ohms</td>
+                                    <td th:text="${material.categoria.nome}">Eletrônica</td>
+                                    <td th:text="${material.estoque}">500</td>
+                                    <td>
+                                        <a class="senai-link"
+                                            th:href="@{/app/materiais/editar/{id}(id=${material.id})}">Editar</a>
+                                        <a class="senai-link"
+                                            th:href="@{/app/materiais/excluir/{id}(id=${material.id})}"
+                                            style="color: red;"
+                                            onclick="return confirm('Excluir este material?');">Excluir</a>
+                                    </td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(materiais)}">
+                                    <td colspan="5" style="text-align: center; color: #6B7280;">Nenhum material
+                                        cadastrado.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div style="margin-top: 16px;">
+                    <a class="senai-link" th:href="@{/dashboard}">&larr; Voltar ao Dashboard</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div th:include="~{fragments/footer :: footer}"></div>
+</body>
+<script th:src="@{/js/menu.js}"></script>
+
+</html>

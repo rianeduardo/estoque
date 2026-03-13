@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editar Ativo | Sistema de Patrimônio</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{//use.fontawesome.com/releases/v7.2.0/css/all.css}">
+
+</head>
+
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <main class="senai-main">
+        <section class="senai-hero">
+            <div class="senai-shell" style="justify-content:center;">
+                <div class="senai-card" style="width: 100%; max-width: 600px;">
+                    <h1 class="senai-title" style="font-size: 22px;">Editar Ativo Patrimonial</h1>
+
+                    <form th:action="@{/app/ativos/salvar}" th:object="${ativo}" method="post" class="senai-form">
+
+                        <input type="hidden" th:field="*{idPatrimonio}" />
+
+                        <label class="senai-label" for="nome">Nome do Equipamento/Bem</label>
+                        <input class="senai-input" type="text" id="nome" th:field="*{nome}" required />
+
+                        <label class="senai-label" for="codigoPatrimonio">Código de Patrimônio</label>
+                        <input class="senai-input" type="text" id="codigoPatrimonio" th:field="*{codigoPatrimonio}"
+                            required />
+
+                        <label class="senai-label" for="localizacao">Localização Atual</label>
+                        <input class="senai-input" type="text" id="localizacao" th:field="*{localizacao}" required />
+
+                        <label class="senai-label" for="estado">Estado de Conservação</label>
+                        <select class="senai-input" id="estado" th:field="*{estado}" required>
+                            <option value="NOVO">Novo</option>
+                            <option value="BOM">Bom (Em uso)</option>
+                            <option value="REGULAR">Regular (Com avarias leves)</option>
+                            <option value="MANUTENCAO">Em Manutenção</option>
+                            <option value="INSERVIVEL">Inservível / Sucata</option>
+                        </select>
+
+                        <label class="senai-label" for="descricao">Descrição ou Observações</label>
+                        <textarea class="senai-input" id="descricao" th:field="*{descricao}" rows="3"></textarea>
+
+                        <div class="senai-actions" style="margin-top: 20px; justify-content: flex-end;">
+                            <a class="senai-link" th:href="@{/app/ativos}" style="margin-right: 12px;">Cancelar</a>
+                            <button class="senai-button" type="submit">Salvar Alterações</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div th:include="~{fragments/footer :: footer}"></div>
+</body>
+<script th:src="@{/js/menu.js}"></script>
+
+</html>

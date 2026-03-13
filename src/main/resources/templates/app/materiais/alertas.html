@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alertas de Estoque | Sistema de Estoque</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{//use.fontawesome.com/releases/v7.2.0/css/all.css}">
+</head>
+
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <main class="senai-main">
+        <section class="senai-hero">
+            <div class="senai-shell" style="flex-direction: column;">
+
+                <div style="margin-bottom: 20px;">
+                    <h1 class="senai-title" style="color: var(--senai-red);"><i class="fa-solid fa-triangle-exclamation"
+                            style="color: #e30613; margin-right: 20px;"></i>Alertas de Estoque Baixo</h1>
+                    <p class="senai-subtitle">Materiais que estão com o saldo igual ou inferior a 5 unidades.</p>
+                </div>
+
+                <div class="senai-card" style="width: 100%;">
+
+                    <div th:if="${#lists.isEmpty(alertas)}"
+                        style="background-color: #d4edda; color: #155724; padding: 20px; border-radius: 4px; text-align: center;">
+                        <strong>Tudo tranquilo!</strong> Nenhum material está com estoque crítico no momento.
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+
+                        <div th:each="item : ${alertas}"
+                            style="background-color: #fff3cd; color: #856404; padding: 16px; border-left: 5px solid #ffc107; border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+
+                            <div>
+                                <strong style="font-size: 16px;" th:text="${item.nome}">Material</strong><br>
+                                <span style="font-size: 14px;">Categoria: <span
+                                        th:text="${item.categoria.nome}"></span></span>
+                            </div>
+
+                            <div style="text-align: right;">
+                                <span style="font-size: 12px; text-transform: uppercase; font-weight: bold;">Estoque
+                                    Atual</span><br>
+                                <strong
+                                    th:style="${item.estoque == 0 ? 'color: red; font-size: 20px;' : 'color: #856404; font-size: 20px;'}"
+                                    th:text="${item.estoque} + ' un'">0 un
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div style="margin-top: 16px;">
+                    <a class="senai-link" th:href="@{/dashboard}">&larr; Voltar ao Dashboard</a>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <div th:include="~{fragments/footer :: footer}"></div>
+</body>
+<script th:src="@{/js/menu.js}"></script>
+
+</html>

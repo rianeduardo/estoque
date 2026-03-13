@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro de Material | Sistema de Estoque e Patrimônio</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{//use.fontawesome.com/releases/v7.2.0/css/all.css}">
+</head>
+
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <main class="senai-main">
+        <section class="senai-hero">
+            <div class="senai-shell" style="justify-content:center;">
+                <div class="senai-card" style="width: 100%; max-width: 600px;">
+                    <h1 class="senai-title" style="font-size: 22px;"
+                        th:text="${material.id == null ? 'Novo Material' : 'Editar Material'}">Novo Material
+                    </h1>
+
+                    <form th:action="@{/app/materiais/salvar}" th:object="${material}" method="post" class="senai-form">
+                        <input type="hidden" th:field="*{id}" />
+
+                        <label class="senai-label" for="nome">Nome do Material</label>
+                        <input class="senai-input" type="text" id="nome" th:field="*{nome}"
+                            placeholder="Ex: Multímetro Digital" required />
+
+                        <label class="senai-label" for="categoria">Categoria</label>
+                        <select class="senai-input" id="categoria" th:field="*{categoria}" required>
+                            <option value="">Selecione uma categoria...</option>
+                            <option th:each="cat : ${categorias}" th:value="${cat.idCategoria}" th:text="${cat.nome}">
+                            </option>
+                        </select>
+
+                        <label class="senai-label" for="descricao">Descrição (Opcional)</label>
+                        <textarea class="senai-input" id="descricao" th:field="*{descricao}"
+                            placeholder="Detalhes técnicos ou observações..." rows="4"
+                            style="resize: vertical; min-height: 100px;"></textarea>
+
+                        <div class="senai-actions">
+                            <a class="senai-link" th:href="@{/app/materiais}">Cancelar</a>
+                            <button class="senai-button" type="submit">Salvar Material</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div th:include="~{fragments/footer :: footer}"></div>
+</body>
+<script th:src="@{/js/menu.js}"></script>
+
+</html>

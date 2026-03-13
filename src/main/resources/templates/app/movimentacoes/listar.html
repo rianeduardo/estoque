@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movimentações | Sistema de Estoque</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{//use.fontawesome.com/releases/v7.2.0/css/all.css}">
+    <style>
+        .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .badge-entrada {
+            background-color: #28a745;
+        }
+
+        .badge-saida {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <main class="senai-main">
+        <section class="senai-hero">
+            <div class="senai-shell">
+                <div class="senai-card" style="width: 100%;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h1 class="senai-title" style="font-size: 22px;">Histórico de Movimentações</h1>
+                        <a class="senai-button" th:href="@{/app/movimentacoes/nova}">Registrar Nova</a>
+                    </div>
+
+                    <table class="senai-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Material</th>
+                                <th>Tipo</th>
+                                <th>Quantidade</th>
+                                <th>Observação</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="mov : ${movimentacoes}">
+                                <td th:text="${mov.idMovimentacao}"></td>
+                                <td th:text="${mov.material != null ? mov.material.nome : 'Material Deletado'}"></td>
+                                <td>
+                                    <span
+                                        th:class="${mov.tipo == 'ENTRADA' ? 'badge badge-entrada' : 'badge badge-saida'}"
+                                        th:text="${mov.tipo}">
+                                    </span>
+                                </td>
+                                <td th:text="${mov.quantidade}"></td>
+                                <td th:text="${mov.observacao}"></td>
+
+                                <td>
+                                    <a class="senai-link"
+                                        th:href="@{/app/movimentacoes/excluir/{id}(id=${mov.idMovimentacao})}"
+                                        style="color: red;"
+                                        onclick="return confirm('Tem certeza que deseja apagar este registro?');">Excluir</a>
+                                </td>
+                            </tr>
+
+                            <tr th:if="${#lists.isEmpty(movimentacoes)}">
+                                <td colspan="6" style="text-align: center;">Nenhuma movimentação registrada.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div th:include="~{fragments/footer :: footer}"></div>
+</body>
+<script th:src="@{/js/menu.js}"></script>
+
+</html>

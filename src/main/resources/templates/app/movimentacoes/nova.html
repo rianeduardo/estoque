@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nova Movimentação | Sistema de Estoque</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{//use.fontawesome.com/releases/v7.2.0/css/all.css}">
+</head>
+
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <main class="senai-main">
+        <section class="senai-hero">
+            <div class="senai-shell" style="justify-content:center;">
+                <div class="senai-card" style="width: 100%; max-width: 600px;">
+                    <h1 class="senai-title" style="font-size: 22px;">Registrar Movimentação</h1>
+                    <p style="margin-bottom: 20px; color: #666;">Registre uma entrada ou saída de material no estoque.
+                    </p>
+
+                    <form th:action="@{/app/movimentacoes/salvar}" th:object="${movimentacao}" method="post"
+                        class="senai-form">
+
+                        <label class="senai-label" for="material">Material</label>
+                        <select class="senai-input" id="material" th:field="*{material}" required>
+                            <option value="">Selecione o material...</option>
+                            <option th:each="mat : ${materiais}" th:value="${mat.id}"
+                                th:text="${mat.nome} + ' (Estoque: ' + ${mat.estoque} + ')'"></option>
+                        </select>
+
+                        <label class="senai-label" for="tipo">Movimentação</label>
+                        <select class="senai-input" id="tipo" th:field="*{tipo}" required>
+                            <option value="">Selecione...</option>
+                            <option value="ENTRADA">Entrada (Adicionar ao estoque)</option>
+                            <option value="SAIDA">Saída (Retirar do estoque)</option>
+                        </select>
+
+                        <label class="senai-label" for="quantidade">Quantidade</label>
+                        <input class="senai-input" type="number" id="quantidade" th:field="*{quantidade}" min="1"
+                            placeholder="Ex: 5" required />
+
+                        <label class="senai-label" for="observacao">Observação / Motivo</label>
+                        <textarea class="senai-input" id="observacao" th:field="*{observacao}" rows="2"
+                            placeholder="Ex: Material recebido via nota fiscal 123, ou Retirado para aula do laboratório 2..."></textarea>
+
+                        <div class="senai-actions" style="margin-top: 20px; justify-content: flex-end;">
+                            <a class="senai-link" th:href="@{/app/movimentacoes}"
+                                style="margin-right: 12px;">Cancelar</a>
+                            <button class="senai-button" type="submit">Salvar Movimentação</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div th:include="~{fragments/footer :: footer}"></div>
+</body>
+<script th:src="@{/js/menu.js}"></script>
+
+</html>

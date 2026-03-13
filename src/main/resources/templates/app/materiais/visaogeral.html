@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visão Geral | Sistema de Estoque</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{//use.fontawesome.com/releases/v7.2.0/css/all.css}">
+</head>
+
+<body>
+
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <main class="senai-main">
+
+        <section style="padding:20px 0;">
+            <div class="senai-shell" style="display:block;">
+
+                <div class="senai-card" style="margin-bottom:24px;">
+                    <h1 class="senai-title" style="font-size:24px;">Estatísticas do Sistema</h1>
+                    <p class="senai-subtitle">Resumo geral do estoque e patrimônio.</p>
+                </div>
+
+                <div class="stats-grid">
+
+                    <div class="stats-card">
+                        <div class="stats-emoji"><i class="fa-solid fa-box" style="color: #e30613;"></i></div>
+                        <h3>Total de Materiais</h3>
+                        <p>Itens cadastrados no estoque</p>
+                        <span class="stats-number" th:text="${totalMateriais}">120</span>
+                    </div>
+
+                    <div class="stats-card">
+                        <div class="stats-emoji"><i class="fa-solid fa-triangle-exclamation"
+                                style="color: #e30613;"></i></div>
+                        <h3>Estoque Baixo</h3>
+                        <p>Materiais abaixo do mínimo</p>
+                        <span class="stats-number" th:text="${estoqueBaixo}">4</span>
+                    </div>
+
+                    <div class="stats-card">
+                        <div class="stats-emoji"><i class="fa-solid fa-school" style="color: #e30613;"></i></div>
+                        <h3>Patrimônios</h3>
+                        <p>Total de ativos cadastrados</p>
+                        <span class="stats-number" th:text="${totalPatrimonios}">52</span>
+                    </div>
+
+                    <div class="stats-card">
+                        <div class="stats-emoji"><i class="fa-solid fa-arrow-down-up-across-line"
+                                style="color: #e30613;"></i></div>
+                        <h3>Movimentações</h3>
+                        <p>Movimentações registradas</p>
+                        <span class="stats-number" th:text="${movimentacoes}">230</span>
+                    </div>
+
+                    <div class="stats-card">
+                        <div class="stats-emoji"><i class="fa-solid fa-chart-line" style="color: #e30613;"></i></div>
+                        <h3>Categorias</h3>
+                        <p>Categorias cadastradas</p>
+                        <span class="stats-number" th:text="${categorias}">12</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+<script th:src="@{/js/menu.js}"></script>
+
+</html>

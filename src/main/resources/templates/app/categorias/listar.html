@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Categorias | Sistema de Estoque</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{//use.fontawesome.com/releases/v7.2.0/css/all.css}">
+</head>
+
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <main class="senai-main">
+        <section class="senai-hero">
+            <div class="senai-shell">
+                <div class="senai-card" style="width: 100%; max-width: 800px; margin: 0 auto;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h1 class="senai-title" style="font-size: 22px;">Categorias de Materiais</h1>
+                        <a class="senai-button" th:href="@{/app/categorias/nova}">Nova Categoria</a>
+                    </div>
+
+                    <table class="senai-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome da Categoria</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="cat : ${categorias}">
+                                <td th:text="${cat.idCategoria}"></td>
+                                <td th:text="${cat.nome}"></td>
+                                <td>
+                                    <a class="senai-link"
+                                        th:href="@{/app/categorias/editar/{id}(id=${cat.idCategoria})}">Editar</a> |
+                                    <a class="senai-link"
+                                        th:href="@{/app/categorias/excluir/{id}(id=${cat.idCategoria})}"
+                                        style="color: red;"
+                                        onclick="return confirm('Tem certeza que deseja excluir esta categoria?');">Excluir</a>
+                                </td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(categorias)}">
+                                <td colspan="3" style="text-align: center;">Nenhuma categoria cadastrada.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div th:include="~{fragments/footer :: footer}"></div>
+</body>
+<script th:src="@{/js/menu.js}"></script>
+
+</html>

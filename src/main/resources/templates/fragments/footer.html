@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+    <footer th:fragment="footer" class="senai-footer">
+        <div class="senai-shell">
+            <p class="senai-footer-text">
+                © <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}"></span> SENAI-SP.
+                Todos os direitos reservados. Projeto Acadêmico de Sistema de Gerenciamento.
+            </p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
